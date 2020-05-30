@@ -27,16 +27,17 @@ public class PalavraChave {
         }
         inputFile.close();
 
-        //Apartir do arraylist seleciona uma palavra randomica
-        String palavra = palavras.get((int) (Math.random() * palavras.size()));
+        //A partir do arraylist seleciona uma palavra randomica
+        palavraChave = palavras.get((int) (Math.random() * palavras.size()));
 
-        setPalavraChave(palavra);
+        setPalavraChave(palavraChave);
+        montaDica();
     }
 
-    public void montaDica(){
+    protected void montaDica(){
 
         for(int cont = 0; cont < getPalavraChave().length(); cont++){
-            dica.add(" __ ");
+            dica.add("_");
         }
 
         setDica(dica);

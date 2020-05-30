@@ -15,34 +15,35 @@ public class Regras {
         listaLetrasCorretas = palavraChave.getPalavraChave().split("");
         int qtdLetras = palavraChave.getPalavraChave().length();
         dica = palavraChave.getDica();
-        int i = 0;
-        while (i < qtdLetras) {
-            if (listaLetrasCorretas[i].equals(letraDigitada)) {
+
+        for (int i = 0; i < qtdLetras; i++) {
+            if (listaLetrasCorretas[i].toUpperCase().equals(letraDigitada.toUpperCase())) {
                 dica.remove(i);
-                dica.add(i,letraDigitada);
+                dica.add(i,listaLetrasCorretas[i]);
                 acertou = true;
             }
-            i++;
         }
         validaPalavra();
-        controlaPontuacao(pontuacao);
+        controlaPontuacao();
         palavraChave.setDica(dica);
     }
 
     private void validaPalavra(){
         if(palavraChave.getPalavraChave().equals(palavraChave.converteDicaEmString())){
+            System.out.println(palavraChave.converteDicaEmString());
             System.out.println("Você Ganhou... Parabéns!!");
             System.exit(0);
         }
     }
 
-    private void controlaPontuacao(int pontuacao) {
-        if(!acertou){
-            this.pontuacao = pontuacao - 1;
-        } else {
-            this.pontuacao = pontuacao;
-        }
+    private void controlaPontuacao() {
 
+        if(!acertou){
+            this.pontuacao--;
+        }
+        else{
+            this.acertou = false;
+        }
         System.out.println("Vida(s): "+this.pontuacao);
 
         if(this.pontuacao == 0){
@@ -53,9 +54,8 @@ public class Regras {
 
     public void selecionaDificuldade(){
         Scanner in = new Scanner(System.in);
-        System.out.print("Qual dificuldade você deseja?(D)Díficil, (N)Normal, (F)Fácil --> ");
+        System.out.print("Qual dificuldade você deseja? (D)Díficil, (N)Normal, (F)Fácil --> ");
         String dificuldade =  in.next();
-
         switch (dificuldade.toUpperCase()) {
             case "D":
                 palavraChave.escolhePalavraChave("listaDificil");
